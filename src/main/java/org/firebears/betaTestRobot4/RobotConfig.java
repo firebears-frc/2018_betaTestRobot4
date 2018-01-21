@@ -55,7 +55,7 @@ public class RobotConfig {
    */
   public RobotConfig() {
     report = new RobotReport("betaTestRobot4");
-    report.setDescription("Command-based robot example, with dependency injection.");
+    report.setDescription("Command-based robot example, with dependency injection...");
 
     frontLeftMotor = new WPI_TalonSRX(CAN_FRONT_LEFT);
     frontLeftMotor.setName("Chassis", "frontLeft");

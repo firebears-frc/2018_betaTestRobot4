@@ -2,7 +2,8 @@ package org.firebears.betaTestRobot4;
 
 import java.io.File;
 import org.firebears.betaTestRobot4.commands.DriveCommand;
-import org.firebears.betaTestRobot4.commands.DriveForwardCommand;
+import org.firebears.betaTestRobot4.commands.RightSwitchPriorityCommand;
+import org.firebears.betaTestRobot4.commands.TurnCommand;
 import org.firebears.betaTestRobot4.subsystems.Chassis;
 import org.firebears.util.RobotReport;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -10,8 +11,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Configures all components required by subsystems.
@@ -45,8 +46,9 @@ public class RobotConfig {
   public final WPI_TalonSRX rearRightMotor;
 
   public final Joystick joystick;
+  public final JoystickButton trigger;
 
-  public Chassis chassis;
+  public static Chassis chassis;
 
   public RobotReport report;
 
@@ -98,6 +100,7 @@ public class RobotConfig {
 
     joystick = new Joystick(0);
     report.addJoystick(0, "joystick", joystick);
+    trigger = new JoystickButton(joystick, 1);
   }
 
   /**
@@ -124,6 +127,7 @@ public class RobotConfig {
    * Also may put Commands on the SmartDashboard.
    */
   protected void initializeOperatorInterface() {
+    trigger.whenPressed(new TurnCommand(chassis, true));
 
   }
 
@@ -133,7 +137,7 @@ public class RobotConfig {
    * @return Command for autonomous mode, or {@code null}.
    */
   public Command getAutonomousCommand() {
-    return new DriveForwardCommand(chassis);
+    return new RightSwitchPriorityCommand();
   }
 
   private static void setPID(TalonSRX talonSRX, double pidP, double pidI, double pidD, double pidF,

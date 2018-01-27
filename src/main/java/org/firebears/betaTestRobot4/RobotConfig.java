@@ -2,7 +2,10 @@ package org.firebears.betaTestRobot4;
 
 import java.io.File;
 import org.firebears.betaTestRobot4.commands.DriveCommand;
+import org.firebears.betaTestRobot4.commands.PlayRecordingCommand;
 import org.firebears.betaTestRobot4.commands.RightSwitchPriorityCommand;
+import org.firebears.betaTestRobot4.commands.StartMotionRecordCommand;
+import org.firebears.betaTestRobot4.commands.StopMotionRecordCommand;
 import org.firebears.betaTestRobot4.commands.TurnCommand;
 import org.firebears.betaTestRobot4.subsystems.Chassis;
 import org.firebears.util.RobotReport;
@@ -13,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Configures all components required by subsystems.
@@ -128,7 +132,11 @@ public class RobotConfig {
    */
   protected void initializeOperatorInterface() {
     trigger.whenPressed(new TurnCommand(chassis, true));
-
+    if (DEBUG) {
+      SmartDashboard.putData("Recording Start", new StartMotionRecordCommand(chassis));
+      SmartDashboard.putData("Recording Stop", new StopMotionRecordCommand());
+      SmartDashboard.putData("Recording Play", new PlayRecordingCommand(chassis));
+    }
   }
 
   /**
@@ -154,5 +162,5 @@ public class RobotConfig {
     talonSRX.config_IntegralZone(slotIdx, pidIZone, TIMEOUT_MS);
     talonSRX.selectProfileSlot(slotIdx, PID_IDX);
   }
-  
+
 }

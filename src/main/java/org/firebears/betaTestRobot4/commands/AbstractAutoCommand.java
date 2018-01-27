@@ -42,6 +42,7 @@ public abstract class AbstractAutoCommand extends Command {
     out.printf("gamedata = %s%n", gameData);
     out.printf("autoCommand = %s%n", autoCommand);
     autoCommand.start();
+    gameData = null;
   }
 
   /**

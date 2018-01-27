@@ -12,6 +12,7 @@ package org.firebears.betaTestRobot4.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import java.io.*;
+import org.firebears.betaTestRobot4.RobotConfig;
 import org.firebears.betaTestRobot4.subsystems.Chassis;
 
 /**
@@ -42,8 +43,8 @@ public class StartMotionRecordCommand extends Command {
 
   protected void execute() {
     long time = System.currentTimeMillis() - startTime;
-    double forwardAmount = chassis.getDriveMove();
-    double rotateAmount = .chassis.getDriveRotate();
+    double forwardAmount = chassis.getDriveSpeed();
+    double rotateAmount = chassis.getDriveRotation();
     w.printf("%d,%.2f,%.2f,%n", time, forwardAmount, rotateAmount);
   }
 

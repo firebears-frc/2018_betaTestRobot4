@@ -25,10 +25,10 @@ public class RobotConfig {
 
   public static final boolean DEBUG = true;
 
-  public static final int CAN_FRONT_LEFT = 2;
-  public static final int CAN_REAR_LEFT = 3;
-  public static final int CAN_FRONT_RIGHT = 4;
-  public static final int CAN_REAR_RIGHT = 5;
+  public static final int CAN_LEFT_MASTER = 2;
+  public static final int CAN_LEFT_SLAVE = 3;
+  public static final int CAN_RIGHT_SLAVE = 4;
+  public static final int CAN_RIGHT_MASTER = 5;
   public static final boolean CHASSIS_BRAKE_MODE = true;
 
   static final double PID_P = 3.0f;
@@ -42,12 +42,12 @@ public class RobotConfig {
   static final int PID_IDX = 0;
   static final int TIMEOUT_MS = 10;
 
-  static final boolean CLOSED_LOOP_DRIVING = false;
+  static final boolean CLOSED_LOOP_DRIVING = true;
 
-  public final WPI_TalonSRX frontLeftMotor;
-  public final WPI_TalonSRX rearLeftMotor;
-  public final WPI_TalonSRX frontRightMotor;
-  public final WPI_TalonSRX rearRightMotor;
+  public final WPI_TalonSRX leftMotorMaster;
+  public final WPI_TalonSRX leftMotorSlave;
+  public final WPI_TalonSRX rightMotorMaster;
+  public final WPI_TalonSRX rightMotorSlave;
 
   public final Joystick joystick;
   public final JoystickButton trigger;
@@ -63,43 +63,36 @@ public class RobotConfig {
     report = new RobotReport("betaTestRobot4");
     report.setDescription("Command-based robot example, with dependency injection...");
 
-    frontLeftMotor = new WPI_TalonSRX(CAN_FRONT_LEFT);
-    frontLeftMotor.setName("Chassis", "frontLeft");
-    frontLeftMotor.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
-    report.addCAN(CAN_FRONT_LEFT, "frontLeft", frontLeftMotor);
+    leftMotorMaster = new WPI_TalonSRX(CAN_LEFT_MASTER);
+    leftMotorMaster.setName("Chassis", "leftMaster");
+    leftMotorMaster.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
+    report.addCAN(CAN_LEFT_MASTER, "leftMaster", leftMotorMaster);
 
-    frontRightMotor = new WPI_TalonSRX(CAN_FRONT_RIGHT);
-    frontRightMotor.setName("Chassis", "frontRight");
-    frontRightMotor.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
-    report.addCAN(CAN_FRONT_RIGHT, "frontRight", frontRightMotor);
+    leftMotorSlave = new WPI_TalonSRX(CAN_LEFT_SLAVE);
+    leftMotorSlave.setName("Chassis", "leftSlave");
+    leftMotorSlave.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
+    leftMotorSlave.follow(leftMotorMaster);
+    report.addCAN(CAN_LEFT_SLAVE, "leftSlave", leftMotorSlave);
 
-    rearLeftMotor = new WPI_TalonSRX(CAN_REAR_LEFT);
-    rearLeftMotor.setName("Chassis", "rearLeft");
-    rearLeftMotor.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
-    report.addCAN(CAN_REAR_LEFT, "frontRight", rearLeftMotor);
+    rightMotorMaster = new WPI_TalonSRX(CAN_RIGHT_MASTER);
+    rightMotorMaster.setName("Chassis", "rightMaster");
+    rightMotorMaster.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
+    report.addCAN(CAN_RIGHT_MASTER, "rightMaster", rightMotorMaster);
 
-    rearRightMotor = new WPI_TalonSRX(CAN_REAR_RIGHT);
-    rearRightMotor.setName("Chassis", "rearRight");
-    rearRightMotor.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
-    report.addCAN(CAN_REAR_RIGHT, "rearRight", rearRightMotor);
+    rightMotorSlave = new WPI_TalonSRX(CAN_RIGHT_SLAVE);
+    rightMotorSlave.setName("Chassis", "rightSlave");
+    rightMotorSlave.setNeutralMode(CHASSIS_BRAKE_MODE ? NeutralMode.Brake : NeutralMode.Coast);
+    rightMotorSlave.follow(rightMotorMaster);
+    report.addCAN(CAN_RIGHT_SLAVE, "rightSlave", rightMotorSlave);
 
     if (CLOSED_LOOP_DRIVING) {
+      leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
+      leftMotorMaster.setSensorPhase(false);
+      setPID(leftMotorMaster, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
 
-      frontLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
-      frontLeftMotor.setSensorPhase(false);
-      setPID(frontLeftMotor, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
-
-      frontRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
-      frontRightMotor.setSensorPhase(false);
-      setPID(frontRightMotor, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
-
-      rearLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
-      rearLeftMotor.setSensorPhase(false);
-      setPID(rearLeftMotor, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
-
-      rearRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
-      rearRightMotor.setSensorPhase(false);
-      setPID(rearRightMotor, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
+      rightMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, PID_IDX, TIMEOUT_MS);
+      rightMotorMaster.setSensorPhase(false);
+      setPID(rightMotorMaster, PID_P, PID_I, PID_D, PID_FF, PID_IZONE, PID_RAMPRATE, PID_PROFILE);
     }
 
     joystick = new Joystick(0);
@@ -123,7 +116,7 @@ public class RobotConfig {
    * Initialize high-level robot subsystems.
    */
   protected void initializeSubsystems() {
-    chassis = new Chassis(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+    chassis = new Chassis(leftMotorMaster, rightMotorMaster);
   }
 
   /**

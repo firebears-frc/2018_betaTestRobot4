@@ -1,6 +1,7 @@
 package org.firebears.betaTestRobot4.subsystems;
 
 import static org.firebears.betaTestRobot4.RobotConfig.DEBUG;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,17 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Chassis extends Subsystem {
 
   private final DifferentialDrive robotDrive;
-  private final SpeedControllerGroup leftMotors;
-  private final SpeedControllerGroup rightMotors;
+  private final SpeedController leftMotors;
+  private final SpeedController rightMotors;
   double driveSpeed;
   double driveRotation;
   double driveLeft;
   double driveRight;
 
-  public Chassis(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
-      SpeedController frontRightMotor, SpeedController rearRightMotor) {
-    leftMotors = new SpeedControllerGroup(frontLeftMotor, rearLeftMotor);
-    rightMotors = new SpeedControllerGroup(frontRightMotor, rearRightMotor);
+  public Chassis(SpeedController left, SpeedController right) {
+    leftMotors = left;
+    rightMotors = right;
     robotDrive = new DifferentialDrive(leftMotors, rightMotors);
     robotDrive.setSubsystem("Chassis");
   }
@@ -43,6 +43,8 @@ public class Chassis extends Subsystem {
     if (DEBUG) {
       SmartDashboard.putNumber("chassis.speed", speed);
       SmartDashboard.putNumber("chassis.rotation", rotation);
+      SmartDashboard.putNumber("left.encoder.velocity", ((TalonSRX)leftMotors).getSelectedSensorVelocity(0));
+      SmartDashboard.putNumber("right.encoder.velocity", ((TalonSRX)rightMotors).getSelectedSensorVelocity(0));
     }
     driveSpeed = speed;
     driveRotation = rotation;

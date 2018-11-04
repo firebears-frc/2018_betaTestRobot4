@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="bin/main" path="src/main/java">
+	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry kind="var" path="networktables" sourcepath="ntcore.sources"/>
-	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
-	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar" sourcepath="/USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11/"/>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/wpilibj/wpilibj-java/2019.1.1-beta-1/wpilibj-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/wpilibj/wpilibj-java/2019.1.1-beta-1/wpilibj-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/ntcore/ntcore-java/2019.1.1-beta-1/ntcore-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/ntcore/ntcore-java/2019.1.1-beta-1/ntcore-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/wpiutil/wpiutil-java/2019.1.1-beta-1/wpiutil-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/wpiutil/wpiutil-java/2019.1.1-beta-1/wpiutil-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.3-7/opencv-java-3.4.3-7-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.3-7/opencv-java-3.4.3-7.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/cscore/cscore-java/2019.1.1-beta-1/cscore-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/cscore/cscore-java/2019.1.1-beta-1/cscore-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/cameraserver/cameraserver-java/2019.1.1-beta-1/cameraserver-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/cameraserver/cameraserver-java/2019.1.1-beta-1/cameraserver-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Public/frc2019/maven/edu/wpi/first/hal/hal-java/2019.1.1-beta-1/hal-java-2019.1.1-beta-1-sources.jar" kind="lib" path="C:/Users/Public/frc2019/maven/edu/wpi/first/hal/hal-java/2019.1.1-beta-1/hal-java-2019.1.1-beta-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/user/.gradle/daemon/4.9/unresolved dependency - junit junit 4.12">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+		</attributes>
+	</classpathentry>
 </classpath>
